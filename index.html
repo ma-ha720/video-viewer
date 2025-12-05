@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>動画URL生成ツール</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+    
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 3px solid #667eea;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #333;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    
+    .form-group small {
+      display: block;
+      margin-top: 5px;
+      color: #666;
+      font-size: 12px;
+    }
+    
+    .btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+      width: 100%;
+    }
+    
+    .btn:hover {
+      background: #5568d3;
+    }
+    
+    .result {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      border: 2px solid #667eea;
+      margin-top: 20px;
+      display: none;
+    }
+    
+    .result strong {
+      color: #667eea;
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    .result code {
+      background: white;
+      padding: 10px;
+      display: block;
+      border-radius: 4px;
+      font-size: 13px;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📹 動画URL生成ツール</h1>
+    
+    <div class="form-group">
+      <label>YouTube動画ID</label>
+      <input type="text" id="videoId" placeholder="例：hMVpJUeb4WU">
+      <small>YouTubeのURLの「v=」の後ろの部分です</small>
+    </div>
+    
+    <div class="form-group">
+      <label>タイトル（任意）</label>
+      <input type="text" id="title" placeholder="例：ゲームに負けた後の切り替え方">
+    </div>
+    
+    <div class="form-group">
+      <label>視聴前メッセージ（任意）</label>
+      <textarea id="preMessage" placeholder="この動画を見る前に考えてほしいことを書きましょう"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>注目ポイント（任意）</label>
+      <textarea id="keyPoints" placeholder="動画のどこに注目してほしいかを書きましょう"></textarea>
+    </div>
+    
+    <button class="btn" onclick="generateUrl()">🔗 URLを生成</button>
+    
+    <div id="result" class="result">
+      <strong>✅ 生成されたURL：</strong>
+      <code id="generatedUrl"></code>
+      <button class="btn" onclick="copyUrl()" style="margin-top:10px;">📋 URLをコピー</button>
+    </div>
+  </div>
+  
+  <script>
+    // ここを自分のGitHub PagesのURLに変更してください
+    const BASE_URL = 'https://あなたのユーザー名.github.io/video-viewer/';
+    
+    function generateUrl() {
+      const videoId = document.getElementById('videoId').value.trim();
+      
+      if (!videoId) {
+        alert('動画IDを入力してください');
+        return;
+      }
+      
+      const title = document.getElementById('title').value.trim();
+      const preMessage = document.getElementById('preMessage').value.trim();
+      const keyPoints = document.getElementById('keyPoints').value.trim();
+      
+      let url = `${BASE_URL}?v=${encodeURIComponent(videoId)}`;
+      
+      if (title) {
+        url += `&title=${encodeURIComponent(title)}`;
+      }
+      
+      if (preMessage) {
+        url += `&msg=${encodeURIComponent(preMessage)}`;
+      }
+      
+      if (keyPoints) {
+        url += `&points=${encodeURIComponent(keyPoints)}`;
+      }
+      
+      document.getElementById('generatedUrl').textContent = url;
+      document.getElementById('result').style.display = 'block';
+    }
+    
+    function copyUrl() {
+      const url = document.getElementById('generatedUrl').textContent;
+      navigator.clipboard.writeText(url).then(() => {
+        alert('URLをコピーしました！');
+      });
+    }
+  </script>
+</body>
+</html>
