@@ -275,10 +275,10 @@
     let playerReady = false;
     
     const urlParams = new URLSearchParams(window.location.search);
-    const videoId = urlParams.get('v') || 'dQw4w9WgXcQ';
-    const title = decodeURIComponent(urlParams.get('title') || 'きょうのじゅぎょう');
-    const preMessage = decodeURIComponent(urlParams.get('msg') || '');
-    const keyPoints = decodeURIComponent(urlParams.get('points') || '');
+　　const videoId = urlParams.get('v') || 'dQw4w9WgXcQ';
+　　const title = urlParams.get('title') || 'きょうのじゅぎょう';
+　　const preMessage = urlParams.get('msg') || '';
+　　const keyPoints = urlParams.get('points') || '';
     
     document.getElementById('videoTitle').textContent = title;
     
