@@ -231,19 +231,16 @@
     </div>
     
     <div class="content">
-      <!-- 教師からのメッセージ -->
       <div id="preMessageSection" class="teacher-comment hidden">
         <h3>👨‍🏫 <ruby>先生<rt>せんせい</rt></ruby>からのメッセージ</h3>
         <p id="preMessage"></p>
       </div>
       
-      <!-- 注目ポイント -->
       <div id="keyPointsSection" class="section hidden">
         <div class="section-title">📌 きょうの<ruby>注目<rt>ちゅうもく</rt></ruby>ポイント</div>
         <p id="keyPoints" style="line-height: 1.8; white-space: pre-wrap;"></p>
       </div>
       
-      <!-- 動画 -->
       <div class="section">
         <div class="section-title">どうがをみましょう</div>
         
@@ -277,14 +274,12 @@
     let player = null;
     let playerReady = false;
     
-    // URLパラメータから情報を取得
     const urlParams = new URLSearchParams(window.location.search);
-    const videoId = urlParams.get('v') || 'dQw4w9WgXcQ'; // デフォルト動画ID
+    const videoId = urlParams.get('v') || 'dQw4w9WgXcQ';
     const title = decodeURIComponent(urlParams.get('title') || 'きょうのじゅぎょう');
     const preMessage = decodeURIComponent(urlParams.get('msg') || '');
     const keyPoints = decodeURIComponent(urlParams.get('points') || '');
     
-    // ページ読み込み時に情報を表示
     document.getElementById('videoTitle').textContent = title;
     
     if (preMessage) {
@@ -297,7 +292,6 @@
       document.getElementById('keyPointsSection').classList.remove('hidden');
     }
     
-    // YouTube IFrame API を動的に読み込み
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -350,72 +344,4 @@
       }
     }
     
-    function pauseVideo() {
-      if (player && playerReady) {
-        player.pauseVideo();
-      }
-    }
-    
-    function enableAdSkip() {
-      const overlay = document.getElementById('videoBlockOverlay');
-      const notice = document.getElementById('adNotice');
-      const btn = document.getElementById('enableAdSkipBtn');
-      
-      overlay.classList.add('ad-playing');
-      notice.classList.add('show');
-      btn.disabled = true;
-      btn.textContent = '⏳ 10びょう たいきちゅう...';
-      
-      setTimeout(() => {
-        overlay.classList.remove('ad-playing');
-        notice.classList.remove('show');
-        btn.style.display = 'none';
-        btn.disabled = false;
-        btn.textContent = '⏭️ こうこくをとばす';
-      }, 10000);
-    }
-  </script>
-</body>
-</html>
-```
-
----
-
-## 3. GitHub Pages で公開
-
-### GitHubでの操作
-
-1. リポジトリに `index.html` をアップロード
-2. リポジトリの「Settings」をクリック
-3. 左メニューの「Pages」をクリック
-4. 「Source」で「main」ブランチを選択
-5. 「Save」をクリック
-6. 数分後、URLが表示されます：
-```
-   https://あなたのユーザー名.github.io/video-viewer/
-```
-
----
-
-## 4. 使い方
-
-### URLの作成方法
-
-基本URL：
-```
-https://あなたのユーザー名.github.io/video-viewer/
-```
-
-パラメータを追加：
-```
-?v=動画ID&title=タイトル&msg=メッセージ&points=注目ポイント
-```
-
-### 例1：基本的な使い方
-```
-https://あなたのユーザー名.github.io/video-viewer/?v=hMVpJUeb4WU&title=ゲームに負けた後の切り替え方
-```
-
-### 例2：全てのパラメータを使用
-```
-https://あなたのユーザー名.github.io/video-viewer/?v=hMVpJUeb4WU&title=ゲームに負けた後の切り替え方&msg=この動画では気持ちの切り替え方を学びます&points=主人公の表情に注目してください
+    functio
