@@ -25,6 +25,32 @@
       border-radius: 16px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.3);
       overflow: hidden;
+      position: relative;
+    }
+    
+    /* 閉じるボタン */
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 2px solid white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(90deg);
     }
     
     .header {
@@ -146,6 +172,17 @@
       cursor: not-allowed;
     }
     
+    /* 閉じるボタン（下部） */
+    .close-bottom-btn {
+      background: #dc3545;
+      margin-top: 20px;
+    }
+    
+    .close-bottom-btn:hover {
+      background: #c82333;
+      box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+    }
+    
     .ad-notice {
       background: #fff3cd;
       padding: 15px;
@@ -220,11 +257,22 @@
         width: 100%;
         justify-content: center;
       }
+      
+      .close-btn {
+        top: 10px;
+        right: 10px;
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- 右上の閉じるボタン -->
+    <button class="close-btn" onclick="closeWindow()" title="とじる">×</button>
+    
     <div class="header">
       <h1>📹 どうがをみよう</h1>
       <p id="videoTitle">きょうのじゅぎょう</p>
@@ -267,6 +315,11 @@
           </div>
         </div>
       </div>
+      
+      <!-- 下部の閉じるボタン -->
+      <button class="control-btn close-bottom-btn" onclick="closeWindow()" style="width: 100%; max-width: 300px; margin: 0 auto; display: block;">
+        ✖️ とじる
+      </button>
     </div>
   </div>
   
@@ -274,41 +327,30 @@
     let player = null;
     let playerReady = false;
     
-    // URLパラメータを取得
     const urlParams = new URLSearchParams(window.location.search);
     const videoId = urlParams.get('v') || 'dQw4w9WgXcQ';
     const title = urlParams.get('title') || 'きょうのじゅぎょう';
     const preMessage = urlParams.get('msg') || '';
     const keyPoints = urlParams.get('points') || '';
     
-    console.log('動画ID:', videoId);
-    console.log('タイトル:', title);
-    console.log('視聴前メッセージ:', preMessage);
-    console.log('注目ポイント:', keyPoints);
-    
-    // タイトルを設定
     document.getElementById('videoTitle').textContent = title;
     
-    // 視聴前メッセージを表示（空でない場合のみ）
     if (preMessage && preMessage.trim() !== '') {
       document.getElementById('preMessage').textContent = preMessage;
       document.getElementById('preMessageSection').classList.remove('hidden');
     }
     
-    // 注目ポイントを表示（空でない場合のみ）
     if (keyPoints && keyPoints.trim() !== '') {
       document.getElementById('keyPoints').textContent = keyPoints;
       document.getElementById('keyPointsSection').classList.remove('hidden');
     }
     
-    // YouTube IFrame API を動的に読み込み
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     
     function onYouTubeIframeAPIReady() {
-      console.log('YouTube API 準備完了');
       player = new YT.Player('player', {
         height: '100%',
         width: '100%',
@@ -332,7 +374,6 @@
     }
     
     function onPlayerReady(event) {
-      console.log('Player 準備完了');
       playerReady = true;
     }
     
@@ -358,7 +399,6 @@
           document.getElementById('enableAdSkipBtn').style.display = 'block';
         }, 3000);
       } else {
-        console.error('Player not ready');
         alert('どうがの じゅんびちゅうです。もういちど おしてください。');
       }
     }
@@ -377,7 +417,7 @@
       overlay.classList.add('ad-playing');
       notice.classList.add('show');
       btn.disabled = true;
-      btn.textContent = '⏳ 10びょう たいきちゅう...';
+      btn.textContent = '⏳ 5びょう たいきちゅう...';
       
       setTimeout(() => {
         overlay.classList.remove('ad-playing');
@@ -385,7 +425,50 @@
         btn.style.display = 'none';
         btn.disabled = false;
         btn.textContent = '⏭️ こうこくをとばす';
-      }, 10000);
+      }, 5000);
+    }
+    
+    function closeWindow() {
+      // 方法1: window.close()を試す
+      window.close();
+      
+      // 方法2: window.close()が効かない場合の対応
+      setTimeout(() => {
+        // 閉じられなかった場合、完了メッセージを表示
+        document.body.innerHTML = `
+          <div style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+          ">
+            <div style="
+              background: white;
+              padding: 40px;
+              border-radius: 16px;
+              box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            ">
+              <h1 style="
+                color: #667eea;
+                font-size: 48px;
+                margin-bottom: 20px;
+              ">✅</h1>
+              <h2 style="
+                color: #333;
+                margin-bottom: 10px;
+              ">どうがをみおわりました</h2>
+              <p style="
+                color: #666;
+                margin-top: 10px;
+              ">このページをとじて、もどってください</p>
+            </div>
+          </div>
+        `;
+      }, 100);
     }
   </script>
 </body>
