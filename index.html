@@ -274,30 +274,41 @@
     let player = null;
     let playerReady = false;
     
+    // URLパラメータを取得
     const urlParams = new URLSearchParams(window.location.search);
-　　const videoId = urlParams.get('v') || 'dQw4w9WgXcQ';
-　　const title = urlParams.get('title') || 'きょうのじゅぎょう';
-　　const preMessage = urlParams.get('msg') || '';
-　　const keyPoints = urlParams.get('points') || '';
+    const videoId = urlParams.get('v') || 'dQw4w9WgXcQ';
+    const title = urlParams.get('title') || 'きょうのじゅぎょう';
+    const preMessage = urlParams.get('msg') || '';
+    const keyPoints = urlParams.get('points') || '';
     
+    console.log('動画ID:', videoId);
+    console.log('タイトル:', title);
+    console.log('視聴前メッセージ:', preMessage);
+    console.log('注目ポイント:', keyPoints);
+    
+    // タイトルを設定
     document.getElementById('videoTitle').textContent = title;
     
-    if (preMessage) {
+    // 視聴前メッセージを表示（空でない場合のみ）
+    if (preMessage && preMessage.trim() !== '') {
       document.getElementById('preMessage').textContent = preMessage;
       document.getElementById('preMessageSection').classList.remove('hidden');
     }
     
-    if (keyPoints) {
+    // 注目ポイントを表示（空でない場合のみ）
+    if (keyPoints && keyPoints.trim() !== '') {
       document.getElementById('keyPoints').textContent = keyPoints;
       document.getElementById('keyPointsSection').classList.remove('hidden');
     }
     
+    // YouTube IFrame API を動的に読み込み
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     
     function onYouTubeIframeAPIReady() {
+      console.log('YouTube API 準備完了');
       player = new YT.Player('player', {
         height: '100%',
         width: '100%',
@@ -314,12 +325,14 @@
         },
         events: {
           'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
+          'onStateChange': onPlayerStateChange,
+          'onError': onPlayerError
         }
       });
     }
     
     function onPlayerReady(event) {
+      console.log('Player 準備完了');
       playerReady = true;
     }
     
@@ -333,6 +346,11 @@
       }
     }
     
+    function onPlayerError(event) {
+      console.error('YouTube Player エラー:', event.data);
+      alert('動画の読み込みに失敗しました。動画IDが正しいか確認してください。');
+    }
+    
     function playVideo() {
       if (player && playerReady) {
         player.playVideo();
@@ -340,8 +358,35 @@
           document.getElementById('enableAdSkipBtn').style.display = 'block';
         }, 3000);
       } else {
+        console.error('Player not ready');
         alert('どうがの じゅんびちゅうです。もういちど おしてください。');
       }
     }
     
-    functio
+    function pauseVideo() {
+      if (player && playerReady) {
+        player.pauseVideo();
+      }
+    }
+    
+    function enableAdSkip() {
+      const overlay = document.getElementById('videoBlockOverlay');
+      const notice = document.getElementById('adNotice');
+      const btn = document.getElementById('enableAdSkipBtn');
+      
+      overlay.classList.add('ad-playing');
+      notice.classList.add('show');
+      btn.disabled = true;
+      btn.textContent = '⏳ 10びょう たいきちゅう...';
+      
+      setTimeout(() => {
+        overlay.classList.remove('ad-playing');
+        notice.classList.remove('show');
+        btn.style.display = 'none';
+        btn.disabled = false;
+        btn.textContent = '⏭️ こうこくをとばす';
+      }, 10000);
+    }
+  </script>
+</body>
+</html>
