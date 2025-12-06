@@ -105,6 +105,16 @@
       border-radius: 4px;
       font-size: 13px;
       word-break: break-all;
+      margin-bottom: 10px;
+    }
+    
+    .preview-btn {
+      background: #28a745;
+      margin-top: 10px;
+    }
+    
+    .preview-btn:hover {
+      background: #218838;
     }
   </style>
 </head>
@@ -138,12 +148,12 @@
     <div id="result" class="result">
       <strong>✅ 生成されたURL：</strong>
       <code id="generatedUrl"></code>
-      <button class="btn" onclick="copyUrl()" style="margin-top:10px;">📋 URLをコピー</button>
+      <button class="btn" onclick="copyUrl()">📋 URLをコピー</button>
+      <button class="btn preview-btn" onclick="openPreview()">👁️ プレビューを開く</button>
     </div>
   </div>
   
   <script>
-    // ここを自分のGitHub PagesのURLに変更してください
     const BASE_URL = 'https://ma-ha720.github.io/video-viewer/';
     
     function generateUrl() {
@@ -158,19 +168,23 @@
       const preMessage = document.getElementById('preMessage').value.trim();
       const keyPoints = document.getElementById('keyPoints').value.trim();
       
-      let url = `${BASE_URL}?v=${encodeURIComponent(videoId)}`;
+      // URLパラメータを構築
+      const params = new URLSearchParams();
+      params.append('v', videoId);
       
       if (title) {
-        url += `&title=${encodeURIComponent(title)}`;
+        params.append('title', title);
       }
       
       if (preMessage) {
-        url += `&msg=${encodeURIComponent(preMessage)}`;
+        params.append('msg', preMessage);
       }
       
       if (keyPoints) {
-        url += `&points=${encodeURIComponent(keyPoints)}`;
+        params.append('points', keyPoints);
       }
+      
+      const url = `${BASE_URL}?${params.toString()}`;
       
       document.getElementById('generatedUrl').textContent = url;
       document.getElementById('result').style.display = 'block';
@@ -181,6 +195,11 @@
       navigator.clipboard.writeText(url).then(() => {
         alert('URLをコピーしました！');
       });
+    }
+    
+    function openPreview() {
+      const url = document.getElementById('generatedUrl').textContent;
+      window.open(url, '_blank');
     }
   </script>
 </body>
