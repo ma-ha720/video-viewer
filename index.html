@@ -10,102 +10,49 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
       font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: #000;
       min-height: 100vh;
-      padding: 20px;
+      padding: 0;
     }
-    
+
     .container {
-      max-width: 900px;
+      max-width: 100%;
       margin: 0 auto;
       background: white;
-      border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      border-radius: 0;
       overflow: hidden;
       position: relative;
     }
-    
-    /* 閉じるボタン */
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-      border: 2px solid white;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      font-size: 24px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-      z-index: 1000;
-    }
-    
-    .close-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: rotate(90deg);
-    }
-    
-    .header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 30px;
-      text-align: center;
-    }
-    
-    .header h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-    
+
     .content {
-      padding: 30px;
+      padding: 0;
     }
-    
+
     .section {
-      margin-bottom: 30px;
-      padding: 20px;
-      background: #f8f9fa;
-      border-radius: 12px;
-      border-left: 4px solid #667eea;
+      margin-bottom: 8px;
+      padding: 0;
+      background: #fff;
+      border-radius: 0;
+      border-left: none;
     }
-    
-    .section-title {
-      font-size: 18px;
-      font-weight: bold;
-      color: #667eea;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-    }
-    
-    .section-title::before {
-      content: "●";
-      margin-right: 10px;
-    }
-    
+
     .video-container {
       position: relative;
     }
-    
+
     .video-wrapper {
       position: relative;
       padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 0;
       background: #000;
-      margin-bottom: 20px;
+      margin-bottom: 0;
     }
-    
+
     .video-wrapper #player {
       position: absolute;
       top: 0;
@@ -113,7 +60,7 @@
       width: 100%;
       height: 100%;
     }
-    
+
     .video-block-overlay {
       position: absolute;
       top: 0;
@@ -126,230 +73,133 @@
       cursor: default;
       transition: opacity 0.3s;
     }
-    
+
     .video-block-overlay.ad-playing {
       opacity: 0;
       pointer-events: none;
     }
-    
+
     .external-controls {
       display: flex;
-      gap: 15px;
+      gap: 10px;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 12px;
       background: #f8f9fa;
-      border-radius: 12px;
-      margin-top: -10px;
+      flex-wrap: wrap;
     }
-    
+
     .control-btn {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       border: none;
-      padding: 12px 24px;
-      font-size: 16px;
+      padding: 10px 20px;
+      font-size: 14px;
       font-weight: bold;
       border-radius: 8px;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
-    
+
     .control-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
     }
-    
+
     .control-btn:active {
       transform: translateY(0);
     }
-    
+
     .control-btn:disabled {
       opacity: 0.5;
       cursor: not-allowed;
     }
-    
-    /* 閉じるボタン（下部） */
+
     .close-bottom-btn {
       background: #dc3545;
-      margin-top: 20px;
     }
-    
+
     .close-bottom-btn:hover {
-      background: #c82333;
       box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
     }
-    
+
     .ad-notice {
       background: #fff3cd;
-      padding: 15px;
-      border-radius: 8px;
-      margin-top: 15px;
+      padding: 10px;
       text-align: center;
       border-left: 4px solid #ffc107;
       display: none;
     }
-    
+
     .ad-notice.show {
       display: block;
     }
-    
+
     .ad-notice p {
       color: #856404;
       font-weight: bold;
       margin: 0;
+      font-size: 13px;
     }
-    
-    .teacher-comment {
-      background: #fff3cd;
-      padding: 20px;
-      border-radius: 8px;
-      border-left: 4px solid #ffc107;
-      margin-bottom: 20px;
-    }
-    
-    .teacher-comment h3 {
-      color: #856404;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-    
-    .teacher-comment p {
-      color: #856404;
-      line-height: 1.8;
-      white-space: pre-wrap;
-    }
-    
+
     .hidden {
       display: none;
-    }
-    
-    @media (max-width: 768px) {
-      body {
-        padding: 10px;
-      }
-      
-      .header {
-        padding: 20px;
-      }
-      
-      .header h1 {
-        font-size: 22px;
-      }
-      
-      .content {
-        padding: 20px;
-      }
-      
-      .section {
-        padding: 15px;
-      }
-      
-      .external-controls {
-        flex-direction: column;
-        gap: 10px;
-      }
-      
-      .control-btn {
-        width: 100%;
-        justify-content: center;
-      }
-      
-      .close-btn {
-        top: 10px;
-        right: 10px;
-        width: 35px;
-        height: 35px;
-        font-size: 20px;
-      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- 右上の閉じるボタン -->
-    <button class="close-btn" onclick="closeWindow()" title="とじる">×</button>
-    
-    <div class="header">
-      <h1>📹 どうがをみよう</h1>
-      <p id="videoTitle">きょうのじゅぎょう</p>
-    </div>
-    
+    <p id="videoTitle" style="text-align:center; padding:8px; font-size:14px; color:#555;"></p>
+
     <div class="content">
-      <div id="preMessageSection" class="teacher-comment hidden">
-        <h3>👨‍🏫 <ruby>先生<rt>せんせい</rt></ruby>からのメッセージ</h3>
-        <p id="preMessage"></p>
-      </div>
-      
-      <div id="keyPointsSection" class="section hidden">
-        <div class="section-title">📌 きょうの<ruby>注目<rt>ちゅうもく</rt></ruby>ポイント</div>
-        <p id="keyPoints" style="line-height: 1.8; white-space: pre-wrap;"></p>
-      </div>
-      
       <div class="section">
-        <div class="section-title">どうがをみましょう</div>
-        
         <div class="video-container">
           <div class="video-wrapper">
             <div id="player"></div>
             <div id="videoBlockOverlay" class="video-block-overlay"></div>
           </div>
-          
+
           <div class="external-controls">
             <button class="control-btn" id="playBtn" onclick="playVideo()">
-              ▶️ さいせい
+              ▶ さいせい
             </button>
             <button class="control-btn" id="pauseBtn" onclick="pauseVideo()" style="display:none;">
-              ⏸️ いちじていし
+              ⏸ いちじていし
             </button>
             <button class="control-btn" id="enableAdSkipBtn" onclick="enableAdSkip()" style="display:none;">
-              ⏭️ こうこくをとばす
+              ⏭ こうこくをとばす
+            </button>
+            <button class="control-btn close-bottom-btn" onclick="closeWindow()">
+              ✖ とじる
             </button>
           </div>
-          
+
           <div id="adNotice" class="ad-notice">
             <p>💡 こうこくが ひょうじされています。「こうこくをとばす」ボタンを おしてください。</p>
           </div>
         </div>
       </div>
-      
-      <!-- 下部の閉じるボタン -->
-      <button class="control-btn close-bottom-btn" onclick="closeWindow()" style="width: 100%; max-width: 300px; margin: 0 auto; display: block;">
-        ✖️ とじる
-      </button>
     </div>
   </div>
-  
+
   <script>
     let player = null;
     let playerReady = false;
-    
+
     const urlParams = new URLSearchParams(window.location.search);
     const videoId = urlParams.get('v') || 'dQw4w9WgXcQ';
     const title = urlParams.get('title') || 'きょうのじゅぎょう';
-    const preMessage = urlParams.get('msg') || '';
-    const keyPoints = urlParams.get('points') || '';
-    
+
     document.getElementById('videoTitle').textContent = title;
-    
-    if (preMessage && preMessage.trim() !== '') {
-      document.getElementById('preMessage').textContent = preMessage;
-      document.getElementById('preMessageSection').classList.remove('hidden');
-    }
-    
-    if (keyPoints && keyPoints.trim() !== '') {
-      document.getElementById('keyPoints').textContent = keyPoints;
-      document.getElementById('keyPointsSection').classList.remove('hidden');
-    }
-    
+
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    
+
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('player', {
         height: '100%',
@@ -372,11 +222,11 @@
         }
       });
     }
-    
+
     function onPlayerReady(event) {
       playerReady = true;
     }
-    
+
     function onPlayerStateChange(event) {
       if (event.data == YT.PlayerState.PLAYING) {
         document.getElementById('playBtn').style.display = 'none';
@@ -386,12 +236,12 @@
         document.getElementById('pauseBtn').style.display = 'none';
       }
     }
-    
+
     function onPlayerError(event) {
       console.error('YouTube Player エラー:', event.data);
       alert('動画の読み込みに失敗しました。動画IDが正しいか確認してください。');
     }
-    
+
     function playVideo() {
       if (player && playerReady) {
         player.playVideo();
@@ -402,69 +252,50 @@
         alert('どうがの じゅんびちゅうです。もういちど おしてください。');
       }
     }
-    
+
     function pauseVideo() {
       if (player && playerReady) {
         player.pauseVideo();
       }
     }
-    
+
     function enableAdSkip() {
       const overlay = document.getElementById('videoBlockOverlay');
       const notice = document.getElementById('adNotice');
       const btn = document.getElementById('enableAdSkipBtn');
-      
+
       overlay.classList.add('ad-playing');
       notice.classList.add('show');
       btn.disabled = true;
       btn.textContent = '⏳ 5びょう たいきちゅう...';
-      
+
       setTimeout(() => {
         overlay.classList.remove('ad-playing');
         notice.classList.remove('show');
         btn.style.display = 'none';
         btn.disabled = false;
-        btn.textContent = '⏭️ こうこくをとばす';
+        btn.textContent = '⏭ こうこくをとばす';
       }, 5000);
     }
-    
+
     function closeWindow() {
-      // 方法1: window.close()を試す
       window.close();
-      
-      // 方法2: window.close()が効かない場合の対応
       setTimeout(() => {
-        // 閉じられなかった場合、完了メッセージを表示
         document.body.innerHTML = `
           <div style="
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f8f9fa;
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
           ">
-            <div style="
-              background: white;
-              padding: 40px;
-              border-radius: 16px;
-              box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            ">
-              <h1 style="
-                color: #667eea;
-                font-size: 48px;
-                margin-bottom: 20px;
-              ">✅</h1>
-              <h2 style="
-                color: #333;
-                margin-bottom: 10px;
-              ">どうがをみおわりました</h2>
-              <p style="
-                color: #666;
-                margin-top: 10px;
-              ">このページをとじて、もどってください</p>
+            <div>
+              <p style="font-size: 48px; margin-bottom: 16px;">✅</p>
+              <p style="color: #333; font-size: 18px; margin-bottom: 8px;">どうがをみおわりました</p>
+              <p style="color: #666; font-size: 14px;">このページをとじて、もどってください</p>
             </div>
           </div>
         `;
